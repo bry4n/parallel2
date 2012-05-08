@@ -5,8 +5,13 @@ class Parallel
 
   def self.each(collection, &block)
     klass = new(collection, &block)
-    klass.parallelized_each(&block)
+    klass.parallelized_each
     collection
+  end
+
+  def self.map(collection, &block)
+    klass = new(collection, &block)
+    klass.parallelized_map
   end
 
   def initialize(collection, &block)
@@ -14,8 +19,12 @@ class Parallel
     @block        = block
   end
 
-  def parallelized_each(&block)
+  def parallelized_each
     futures.each(&:value)
+  end
+  
+  def parallelized_map
+    futures.map(&:value)
   end
 
   def futures
