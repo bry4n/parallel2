@@ -12,7 +12,7 @@ end
 data = Parallel.map(list) do |i|
   sleep i
   puts "#{i} fired!"
-  i
+  i*2
 end
 
 p data
